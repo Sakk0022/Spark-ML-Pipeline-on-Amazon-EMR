@@ -1,3 +1,5 @@
+
+
 # Lab 6: Spark ML Pipeline on Amazon EMR (Customer Churn Prediction)
 
 ## Project Overview
@@ -27,34 +29,49 @@ scp -i rpc-key.pem Churn_Modelling.csv.xls hadoop@ec2-44-203-29-119.compute-1.am
 mv Churn_Modelling.csv.xls Churn_Modelling.csv
 hdfs dfs -mkdir -p /user/hadoop/churn_input
 hdfs dfs -put Churn_Modelling.csv /user/hadoop/churn_input/
-3. Environment Setup
 
-To resolve dependencies for Spark ML, numpy was installed on the master node:
+```
 
-Bash
+### 3. Environment Setup
+
+To resolve dependencies for Spark ML, `numpy` was installed on the master node:
+
+```bash
 sudo pip install numpy
-4. Running the ML Pipeline (Logistic Regression)
+
+```
+
+### 4. Running the ML Pipeline (Logistic Regression)
 
 The main pipeline includes categorical indexing, one-hot encoding, vector assembly, and scaling .
 
-Execution Command:
+**Execution Command:**
 
-Bash
+```bash
 spark-submit --master yarn --deploy-mode client churn_pipeline.py
-Result: Accuracy = 0.7929
 
-5. Experiment: Model Comparison (Option C)
+```
+
+**Result:** Accuracy = **0.7929**
+
+### 5. Experiment: Model Comparison (Option C)
 
 A second script was created to compare Logistic Regression with a Random Forest Classifier.
 
-Execution Command:
+**Execution Command:**
 
-Bash
+```bash
 spark-submit --master yarn --deploy-mode client rf_pipeline.py
-Result: Random Forest Accuracy = 0.8403
 
-Conclusion
+```
+
+**Result:** Random Forest Accuracy = **0.8403**
+
+## Conclusion
+
 The Random Forest model performed significantly better (84.03%) than Logistic Regression (79.29%). This is due to the ensemble model's ability to capture non-linear patterns within the customer data that a linear model cannot easily identify.
 
-Monitoring
-The execution was monitored using the YARN Resource Manager UI at port 8088. The logs confirmed that tasks were distributed across 2 active core nodes.
+## Monitoring
+
+The execution was monitored using the **YARN Resource Manager UI** at port `8088`. The logs confirmed that tasks were distributed across 2 active core nodes.
+
